@@ -8,6 +8,7 @@ function populateUFs() {
       }
     });
 }
+
 populateUFs();
 
 function getCities(event) {
@@ -39,13 +40,13 @@ document
   .addEventListener("change", getCities);
 
 //Itens de coleta
-
+//pegar todos os li's
 const itemsToCollect = document.querySelectorAll(".items-grid li");
 
 for (const item of itemsToCollect) {
   item.addEventListener("click", handleSelectedItem);
 }
-const collectedItems = document.querySelector("input[items]");
+const collectedItems = document.querySelector("input[name = items]");
 let selectedItems = [];
 
 function handleSelectedItem(event) {
@@ -53,11 +54,14 @@ function handleSelectedItem(event) {
   //adicionar ou remover uma classe com java script
   itemLi.classList.toggle("selected");
 
-  const itemId = event.target.dataset.id;
-
+  const itemId = itemLi.dataset.id;
+  //console.log("ITEM ID:", itemId);
   //verificar se existem itens selecionados, se sim pegar os intens selecionado
+  //pegar os items selecionados
+
   const alreadySelected = selectedItems.findIndex((item) => {
-    return item == itemId;
+    const itemFound = item == itemId; //isso sera true ou false
+    return itemFound;
   });
   //se já estiver selecionado, tirar da seleção
   if (alreadySelected >= 0) {
@@ -72,7 +76,8 @@ function handleSelectedItem(event) {
     //adicionar elemento
     selectedItems.push(itemId);
   }
-  console.log(selectedItems);
+
+  // console.log("selectedItems", selectedItems);
   // atualizar o campo escondido com os itens selecionados
   collectedItems.value = selectedItems;
 }
